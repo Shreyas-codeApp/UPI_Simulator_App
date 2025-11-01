@@ -363,7 +363,7 @@ if st.session_state.get("show_interface"):
                     get_note = st.text_input("Enter a note (optional):")
                     get_note = get_note.strip()
                     if st.button("Add note (optional)"):
-                        if "," is in get_note:
+                        if "," in get_note:
                             st.error("Note shouldn't have comma(,)", icon = "🚫")
                         elif get_note.isdigit():
                             st.error("Note shouldn't be purely numeric", icon = "🚫")
@@ -527,5 +527,6 @@ if st.session_state.get("show_interface"):
         st.session_state["Transactions"] = {"payment_state": "enter_amount"}
         st.session_state["expenses"] = {}
         st.rerun()
+
 
 
