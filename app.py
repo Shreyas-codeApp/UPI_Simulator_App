@@ -237,6 +237,7 @@ with st.sidebar:
             - 📊 **Track expenses & categories** – Review spending patterns and payment history with ease.  
             - 👥 **Add contacts & manage transfers** – Keep your own digital contact list for smooth mock payments.  
         """)
+        st.warning("This app doesn't involve transaction with real money", icon="⚠️")
 
 
 st.title(":rainbow[UPI Simulator App]")
@@ -244,6 +245,7 @@ st.caption("Simulate • Learn • Master Digital Payments")
 
 if st.session_state.get("show_interface") is False:
     st.info("Please log in to your account to continue. If you don't have an account, please sign up first.\nBe sure to read the About section.", icon="ℹ️")
+    st.info("Please click on the '>>' button to find the account and the about section")
 
 if st.session_state.get("show_interface"):
     account_details, balance, contacts, transactions, expenses = st.tabs(
@@ -359,9 +361,15 @@ if st.session_state.get("show_interface"):
                 ]
                 if st.session_state["Transactions"]["payment_state"] == "get_details":
                     get_note = st.text_input("Enter a note (optional):")
+                    get_note = get_note.strip()
                     if st.button("Add note (optional)"):
-                        st.session_state["Transactions"]["note"] = get_note
-                        st.success("Note saved.")
+                        if "," is in get_note:
+                            st.error("Note shouldn't have comma(,)", icon = "🚫")
+                        elif get_note.isdigit():
+                            st.error("Note shouldn't be purely numeric", icon = "🚫")
+                        else:
+                            st.session_state["Transactions"]["note"] = get_note
+                            st.success("Note saved.", icon = "✅" )
                     select_category = st.selectbox("Select category:", categories)
                     if st.button("Select category"):
                         st.session_state["Transactions"]["category"] = select_category
@@ -519,4 +527,5 @@ if st.session_state.get("show_interface"):
         st.session_state["Transactions"] = {"payment_state": "enter_amount"}
         st.session_state["expenses"] = {}
         st.rerun()
+
 
