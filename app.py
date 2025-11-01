@@ -245,7 +245,7 @@ st.caption("Simulate • Learn • Master Digital Payments")
 
 if st.session_state.get("show_interface") is False:
     st.info("Please log in to your account to continue. If you don't have an account, please sign up first.\nBe sure to read the About section.", icon="ℹ️")
-    st.info("Please click on the '>>' button to find the account and the about section")
+    st.info("Please click on the '>>' button at the top left corner to find the account and the about section")
 
 if st.session_state.get("show_interface"):
     account_details, balance, contacts, transactions, expenses = st.tabs(
@@ -527,6 +527,7 @@ if st.session_state.get("show_interface"):
         st.session_state["Transactions"] = {"payment_state": "enter_amount"}
         st.session_state["expenses"] = {}
         st.rerun()
+
 
 
 
